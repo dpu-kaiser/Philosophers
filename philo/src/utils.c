@@ -6,7 +6,7 @@
 /*   By: dkaiser <dkaiser@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 12:06:00 by dkaiser           #+#    #+#             */
-/*   Updated: 2024/06/12 12:57:27 by dkaiser          ###   ########.fr       */
+/*   Updated: 2024/06/12 13:11:06 by dkaiser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,30 +24,21 @@ int	ft_error(char *msg)
 	return (1);
 }
 
-int	ft_atoi(const char *str)
+unsigned int	ft_atou(const char *str)
 {
 	int	result;
 	int	i;
-	int	posneg;
 
-	posneg = 1;
 	result = 0;
 	i = 0;
 	while ((str[i] >= '\t' && str[i] <= '\r') || str[i] == ' ')
 	{
 		i++;
 	}
-	if (str[i] == '-')
-	{
-		posneg = -1;
-		i++;
-	}
-	else if (str[i] == '+')
-		i++;
 	while (str[i] >= '0' && str[i] <= '9')
 	{
 		result = 10 * result + str[i] - '0';
 		i++;
 	}
-	return (result * posneg);
+	return (result);
 }
