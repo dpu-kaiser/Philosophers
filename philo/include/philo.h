@@ -6,7 +6,7 @@
 /*   By: dkaiser <dkaiser@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 11:56:55 by dkaiser           #+#    #+#             */
-/*   Updated: 2024/06/12 12:31:54 by dkaiser          ###   ########.fr       */
+/*   Updated: 2024/06/12 12:58:06 by dkaiser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct s_philo_data
 }		t_philo_data;
 
 int		ft_error(char *msg);
+int		ft_atoi(const char *str);
 int		read_args(int argc, char *argv[], t_philo_data *data);
 
 #endif

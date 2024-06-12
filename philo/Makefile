@@ -5,7 +5,7 @@ CFLAGS	=	-Wall -Wextra -Werror
 HEADERS	=	-Iinclude
 
 VPATH 	:=	src
-SRC 	=	main.c utils.c
+SRC 	=	main.c utils.c read_args.c
 
 OBJ_DIR	:=	_obj
 OBJ		:=	$(addprefix $(OBJ_DIR)/, $(SRC:%.c=%.o))
