@@ -6,7 +6,7 @@
 /*   By: dkaiser <dkaiser@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 11:56:55 by dkaiser           #+#    #+#             */
-/*   Updated: 2024/06/12 13:52:32 by dkaiser          ###   ########.fr       */
+/*   Updated: 2024/06/12 14:45:38 by dkaiser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,20 @@ typedef struct s_philo_data
 	unsigned int	number_of_times_philosopher_must_eat;
 }					t_philo_data;
 
-enum				e_state
+enum				e_philo_state
 {
 	THINKING,
 	SLEEPING,
 	EATING
 };
+
+typedef struct s_state
+{
+	void			(*on_enter)(int, t_philo_data *);
+	void			(*on_exit)(int, t_philo_data *);
+	int				(*exit_if)(int, t_philo_data *);
+	unsigned int	time_entered;
+}					t_state;
 
 enum				e_action
 {
