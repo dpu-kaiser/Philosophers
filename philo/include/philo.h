@@ -6,7 +6,7 @@
 /*   By: dkaiser <dkaiser@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 11:56:55 by dkaiser           #+#    #+#             */
-/*   Updated: 2024/06/12 13:28:43 by dkaiser          ###   ########.fr       */
+/*   Updated: 2024/06/12 13:52:32 by dkaiser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 # include "unistd.h"
 # include <stdio.h>
+# include <sys/_types/_timeval.h>
+# include <sys/time.h>
 
 # define ERR_USAGE \
 	"Usage: ./philo <number_of_philosophers> <time_to_die> \
@@ -29,8 +31,25 @@ typedef struct s_philo_data
 	unsigned int	number_of_times_philosopher_must_eat;
 }					t_philo_data;
 
+enum				e_state
+{
+	THINKING,
+	SLEEPING,
+	EATING
+};
+
+enum				e_action
+{
+	THINK,
+	SLEEP,
+	EAT,
+	DIE,
+	TAKE_FORK
+};
+
 int					ft_error(char *msg);
 unsigned int		ft_atou(const char *str);
+void				philo_log(unsigned int philosopher, enum e_action action);
 int					read_args(int argc, char *argv[], t_philo_data *data);
 
 #endif
