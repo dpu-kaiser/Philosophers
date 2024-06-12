@@ -8,12 +8,12 @@ VPATH 	:=	src
 SRC 	=	main.c
 
 OBJ_DIR	:=	_obj
-OBJ		:=	$(addprofix $(OBJ_DIR)/, $(SRC:%.c=%.o))
+OBJ		:=	$(addprefix $(OBJ_DIR)/, $(SRC:%.c=%.o))
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	@$(CC) $(CFLAGS) $(HEADERS) $^ -o $@ $(LIBS)
+	@$(CC) $(CFLAGS) $(HEADERS) $^ -o $@
 	@echo "[$(NAME)] Created binary."
 
 $(OBJ_DIR)/%.o: %.c
