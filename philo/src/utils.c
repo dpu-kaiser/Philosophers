@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dkaiser <dkaiser@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/12 11:56:17 by dkaiser           #+#    #+#             */
-/*   Updated: 2024/06/12 12:31:36 by dkaiser          ###   ########.fr       */
+/*   Created: 2024/06/12 12:06:00 by dkaiser           #+#    #+#             */
+/*   Updated: 2024/06/12 12:12:08 by dkaiser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	main(int argc, char *argv[])
+int ft_error(char *msg)
 {
-    t_philo_data data;
+    int len;
 
-    if (argc != 5 && argc != 6)
-        return(ft_error(ERR_USAGE));
-    if (read_args(argc, argv, &data))
-        return(ft_error(ERR_USAGE));
+    len = 0;
+    while (msg[len] != '\0')
+        len++;
+    write(2, msg, len);
+    write(2, "\n", 1);
+    return (1);
 }
