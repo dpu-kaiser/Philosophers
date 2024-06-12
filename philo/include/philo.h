@@ -49,6 +49,7 @@ enum				e_action
 
 int					ft_error(char *msg);
 unsigned int		ft_atou(const char *str);
+unsigned int		get_current_time_in_ms(void);
 void				philo_log(unsigned int philosopher, enum e_action action);
 int					read_args(int argc, char *argv[], t_philo_data *data);
 
