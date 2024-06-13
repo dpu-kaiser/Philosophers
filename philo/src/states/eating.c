@@ -6,7 +6,7 @@
 /*   By: dkaiser <dkaiser@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 11:23:18 by dkaiser           #+#    #+#             */
-/*   Updated: 2024/06/13 12:12:48 by dkaiser          ###   ########.fr       */
+/*   Updated: 2024/06/13 14:14:39 by dkaiser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,6 @@ int	should_exit_eating(int philo_nbr, void *data)
 		return (DIE);
 	else if (d->philosophers[philo_nbr].time_state_entered
 		+ d->time_to_eat < current_time)
-		return (THINK);
-	return (0);
+		return (SLEEP);
+	return (CONTINUE);
 }

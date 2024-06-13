@@ -6,7 +6,7 @@
 /*   By: dkaiser <dkaiser@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:53:36 by dkaiser           #+#    #+#             */
-/*   Updated: 2024/06/13 12:53:45 by dkaiser          ###   ########.fr       */
+/*   Updated: 2024/06/13 14:14:30 by dkaiser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,5 @@ int	should_exit_thinking(int philo_nbr, void *data)
 		return (DIE);
 	if (take_forks_if_available(d, philo_nbr))
 		return (EAT);
-	return (0);
+	return (CONTINUE);
 }

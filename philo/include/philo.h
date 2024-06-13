@@ -6,7 +6,7 @@
 /*   By: dkaiser <dkaiser@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 11:56:55 by dkaiser           #+#    #+#             */
-/*   Updated: 2024/06/13 13:24:07 by dkaiser          ###   ########.fr       */
+/*   Updated: 2024/06/13 14:14:25 by dkaiser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,14 @@
 
 # include "unistd.h"
 # include <stdio.h>
+# include <stdlib.h>
 # include <sys/_types/_timeval.h>
 # include <sys/time.h>
 
 # define ERR_USAGE \
 	"Usage: ./philo <number_of_philosophers> <time_to_die> \
 <time_to_eat> <time_to_sleep> [number_of_times_philosopher_must_eat]"
+# define ERR_ALLOC "Failed to allocate memory."
 
 enum				e_state
 {
@@ -50,7 +52,8 @@ enum				e_action
 	SLEEP = SLEEPING,
 	EAT = EATING,
 	DIE,
-	TAKE_FORK
+	TAKE_FORK,
+	CONTINUE
 };
 
 enum				e_fork

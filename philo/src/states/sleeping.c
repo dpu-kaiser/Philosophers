@@ -6,7 +6,7 @@
 /*   By: dkaiser <dkaiser@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 11:09:43 by dkaiser           #+#    #+#             */
-/*   Updated: 2024/06/13 12:12:37 by dkaiser          ###   ########.fr       */
+/*   Updated: 2024/06/13 14:14:49 by dkaiser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,5 @@ int	should_exit_sleeping(int philo_nbr, void *data)
 	else if (d->philosophers[philo_nbr].time_state_entered
 		+ d->time_to_sleep < current_time)
 		return (THINK);
-	return (0);
+	return (CONTINUE);
 }

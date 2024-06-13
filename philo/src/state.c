@@ -6,7 +6,7 @@
 /*   By: dkaiser <dkaiser@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 14:59:03 by dkaiser           #+#    #+#             */
-/*   Updated: 2024/06/13 13:03:17 by dkaiser          ###   ########.fr       */
+/*   Updated: 2024/06/13 13:33:32 by dkaiser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ int	should_die(t_philo_data *data, int philo_nbr, unsigned int current_time)
 int	take_forks_if_available(t_philo_data *data, int philo_nbr)
 {
 	unsigned int	left_fork_pos;
-	enum e_fork left_fork;
-	enum e_fork right_fork;
+	enum e_fork		left_fork;
+	enum e_fork		right_fork;
 
 	if (philo_nbr == 0)
 		left_fork_pos = data->number_of_philosophers - 1;
