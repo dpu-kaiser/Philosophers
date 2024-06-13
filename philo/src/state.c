@@ -6,7 +6,7 @@
 /*   By: dkaiser <dkaiser@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 14:59:03 by dkaiser           #+#    #+#             */
-/*   Updated: 2024/06/13 12:15:12 by dkaiser          ###   ########.fr       */
+/*   Updated: 2024/06/13 13:03:17 by dkaiser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,25 @@ int	should_die(t_philo_data *data, int philo_nbr, unsigned int current_time)
 		return (1);
 	else
 		return (0);
+}
+
+int	take_forks_if_available(t_philo_data *data, int philo_nbr)
+{
+	unsigned int	left_fork_pos;
+	enum e_fork left_fork;
+	enum e_fork right_fork;
+
+	if (philo_nbr == 0)
+		left_fork_pos = data->number_of_philosophers - 1;
+	else
+		left_fork_pos = philo_nbr - 1;
+	left_fork = data->forks[left_fork_pos];
+	right_fork = data->forks[philo_nbr];
+	if (left_fork == AVAILABLE && right_fork == AVAILABLE)
+	{
+		data->forks[left_fork_pos] = TAKEN;
+		data->forks[philo_nbr] = TAKEN;
+		return (1);
+	}
+	return (0);
 }

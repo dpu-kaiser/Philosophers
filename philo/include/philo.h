@@ -6,7 +6,7 @@
 /*   By: dkaiser <dkaiser@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 11:56:55 by dkaiser           #+#    #+#             */
-/*   Updated: 2024/06/13 11:52:30 by dkaiser          ###   ########.fr       */
+/*   Updated: 2024/06/13 12:56:27 by dkaiser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,12 @@ enum				e_action
 	TAKE_FORK
 };
 
+enum				e_fork
+{
+	TAKEN,
+	AVAILABLE
+};
+
 typedef struct s_philo_data
 {
 	unsigned int	number_of_philosophers;
@@ -62,6 +68,7 @@ typedef struct s_philo_data
 	unsigned int	number_of_times_philosopher_must_eat;
 	t_state			states[3];
 	t_philosopher	*philosophers;
+	enum e_fork		*forks;
 	unsigned int	start_time;
 }					t_philo_data;
 
@@ -72,10 +79,11 @@ void				philo_log(unsigned int philosopher, enum e_action action);
 int					read_args(int argc, char *argv[], t_philo_data *data);
 
 void				init_states(t_philo_data *data);
-void				enter_state(t_philo_data *data, int philosopher,
+void				enter_state(t_philo_data *data, int philo_nbr,
 						enum e_state state);
-int					should_die(t_philo_data *data, int philosopher,
+int					should_die(t_philo_data *data, int philo_nbr,
 						unsigned int current_time);
+int					take_forks_if_available(t_philo_data *data, int philo_nbr);
 
 int					should_exit_thinking(int philo_nbr, void *args);
 int					should_exit_eating(int philo_nbr, void *args);
