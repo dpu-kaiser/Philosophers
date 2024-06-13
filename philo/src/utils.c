@@ -6,7 +6,7 @@
 /*   By: dkaiser <dkaiser@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 12:06:00 by dkaiser           #+#    #+#             */
-/*   Updated: 2024/06/12 14:45:13 by dkaiser          ###   ########.fr       */
+/*   Updated: 2024/06/13 12:15:18 by dkaiser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,18 +41,17 @@ unsigned int	ft_atou(const char *str)
 	return (result);
 }
 
-unsigned int get_current_time_in_ms()
+unsigned int	get_current_time_in_ms(void)
 {
 	struct timeval	time;
 
 	gettimeofday(&time, NULL);
 	return ((time.tv_sec * 1000) + (time.tv_usec / 1000));
-
 }
 
 void	philo_log(unsigned int philosopher, enum e_action action)
 {
-	unsigned int time_in_ms;
+	unsigned int	time_in_ms;
 
 	time_in_ms = get_current_time_in_ms();
 	if (action == TAKE_FORK)

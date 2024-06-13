@@ -5,7 +5,8 @@ CFLAGS	=	-Wall -Wextra -Werror
 HEADERS	=	-Iinclude
 
 VPATH 	:=	src
-SRC 	=	main.c utils.c read_args.c
+SRC 	=	main.c utils.c read_args.c state.c states/thinking.c \
+			states/eating.c states/sleeping.c
 
 OBJ_DIR	:=	_obj
 OBJ		:=	$(addprefix $(OBJ_DIR)/, $(SRC:%.c=%.o))
@@ -17,8 +18,8 @@ $(NAME): $(OBJ)
 	@echo "[$(NAME)] Created binary."
 
 $(OBJ_DIR)/%.o: %.c
-	@if [ ! -d "$(OBJ_DIR)" ]; then \
-		mkdir $(OBJ_DIR); \
+	@if [ ! -d "$(dir $@)" ]; then \
+		mkdir -p $(dir $@); \
 	fi
 	@$(CC) $(CFLAGS) $(HEADERS) -c $< -o $@
 	@echo "[$(NAME)] Compiled $<."
