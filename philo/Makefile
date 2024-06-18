@@ -6,7 +6,7 @@ HEADERS	=	-Iinclude
 
 VPATH 	:=	src
 SRC 	=	main.c utils.c read_args.c state.c states/thinking.c \
-			states/eating.c states/sleeping.c
+			states/eating.c states/sleeping.c thread_utils.c
 
 OBJ_DIR	:=	_obj
 OBJ		:=	$(addprefix $(OBJ_DIR)/, $(SRC:%.c=%.o))

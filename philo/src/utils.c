@@ -6,7 +6,7 @@
 /*   By: dkaiser <dkaiser@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 12:06:00 by dkaiser           #+#    #+#             */
-/*   Updated: 2024/06/13 13:24:44 by dkaiser          ###   ########.fr       */
+/*   Updated: 2024/06/18 15:49:25 by dkaiser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,7 @@ void	philo_log(unsigned int philo_nbr, enum e_action action)
 		printf("%u %u is sleeping\n", time_in_ms, philo_nbr);
 	else if (action == DIE)
 		printf("%u %u died\n", time_in_ms, philo_nbr);
+	else
+		ft_error("UNREACHABLE");
+
 }

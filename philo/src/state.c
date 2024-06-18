@@ -6,11 +6,12 @@
 /*   By: dkaiser <dkaiser@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 14:59:03 by dkaiser           #+#    #+#             */
-/*   Updated: 2024/06/13 13:33:32 by dkaiser          ###   ########.fr       */
+/*   Updated: 2024/06/18 16:26:02 by dkaiser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+#include <pthread.h>
 
 void	init_states(t_philo_data *data)
 {
@@ -31,30 +32,35 @@ int	should_die(t_philo_data *data, int philo_nbr, unsigned int current_time)
 	current_time = get_current_time_in_ms();
 	if (data->philosophers[philo_nbr].times_eaten == 0 && data->start_time
 		+ data->time_to_die < current_time)
-		return (1);
-	else if (data->philosophers[philo_nbr].time_last_eaten
+		return (printf("0\n"), 1);
+	else if (data->philosophers[philo_nbr].times_eaten > 0
+		&& data->philosophers[philo_nbr].time_last_eaten
 		+ data->time_to_die < current_time)
-		return (1);
+		return (printf("1\n"), 1);
 	else
 		return (0);
 }
 
 int	take_forks_if_available(t_philo_data *data, int philo_nbr)
 {
-	unsigned int	left_fork_pos;
-	enum e_fork		left_fork;
-	enum e_fork		right_fork;
+	unsigned int		left_fork_pos;
+	enum e_fork_state	left_fork_state;
+	enum e_fork_state	right_fork_state;
 
 	if (philo_nbr == 0)
 		left_fork_pos = data->number_of_philosophers - 1;
 	else
 		left_fork_pos = philo_nbr - 1;
-	left_fork = data->forks[left_fork_pos];
-	right_fork = data->forks[philo_nbr];
-	if (left_fork == AVAILABLE && right_fork == AVAILABLE)
+	pthread_mutex_lock(&data->forks[left_fork_pos].lock);
+	pthread_mutex_lock(&data->forks[philo_nbr].lock);
+	left_fork_state = data->forks[left_fork_pos].state;
+	right_fork_state = data->forks[philo_nbr].state;
+	if (left_fork_state == AVAILABLE && right_fork_state == AVAILABLE)
 	{
-		data->forks[left_fork_pos] = TAKEN;
-		data->forks[philo_nbr] = TAKEN;
+		data->forks[left_fork_pos].state = TAKEN;
+		data->forks[philo_nbr].state = TAKEN;
+		pthread_mutex_unlock(&data->forks[left_fork_pos].lock);
+		pthread_mutex_unlock(&data->forks[philo_nbr].lock);
 		return (1);
 	}
 	return (0);
