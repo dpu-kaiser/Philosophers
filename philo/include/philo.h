@@ -1,32 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dkaiser <dkaiser@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/14 17:13:30 by dkaiser           #+#    #+#             */
-/*   Updated: 2025/01/17 11:53:53 by dkaiser          ###   ########.fr       */
+/*   Created: 2025/01/17 10:23:19 by dkaiser           #+#    #+#             */
+/*   Updated: 2025/01/17 12:01:01 by dkaiser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#ifndef PHILO_H
+# define PHILO_H
 
-int ft_err(char *str)
+# include <unistd.h>
+# include <stdlib.h>
+# include <stdio.h>
+# include <pthread.h>
+# include <sys/time.h>
+# include "ft_utils.h"
+
+# define ERR_USAGE "Usage: <nbr_of_philos> <ttd> <tte> <tts> [times_must_eat]"
+
+typedef struct s_phdata
 {
-    printf("\e[31m[ERROR] %s\e[0m\n", str);
-    return (EXIT_FAILURE);
-}
+    int nbr_of_philos;
+    int time_to_die;
+    int time_to_eat;
+    int time_to_sleep;
+    int times_must_eat;
+} t_phdata;
 
-int main(int argc, char *argv[])
-{
-    t_phdata data;
-    int result;
-
-    if (argc != 5 && argc != 6)
-        return(ft_err(ERR_USAGE));
-    result = load_data(&data, argc, argv);
-    if (result != EXIT_SUCCESS)
-        return (result);
-    return (EXIT_SUCCESS);
-}
+#endif

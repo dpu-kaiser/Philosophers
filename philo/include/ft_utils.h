@@ -1,32 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_utils.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dkaiser <dkaiser@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/14 17:13:30 by dkaiser           #+#    #+#             */
-/*   Updated: 2025/01/17 11:53:53 by dkaiser          ###   ########.fr       */
+/*   Created: 2025/01/17 11:57:44 by dkaiser           #+#    #+#             */
+/*   Updated: 2025/01/17 12:00:11 by dkaiser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#ifndef FT_UTILS_H
+#define FT_UTILS_H
 
-int ft_err(char *str)
-{
-    printf("\e[31m[ERROR] %s\e[0m\n", str);
-    return (EXIT_FAILURE);
-}
+/*
+** Prints error message and returns EXIT_FAILURE
+*/
+int ft_err(const char *str);
 
-int main(int argc, char *argv[])
-{
-    t_phdata data;
-    int result;
+/*
+** Returns integer value from str
+*/
+int ft_atoi(const char *str);
 
-    if (argc != 5 && argc != 6)
-        return(ft_err(ERR_USAGE));
-    result = load_data(&data, argc, argv);
-    if (result != EXIT_SUCCESS)
-        return (result);
-    return (EXIT_SUCCESS);
-}
+#endif
