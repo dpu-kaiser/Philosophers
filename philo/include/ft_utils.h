@@ -6,12 +6,15 @@
 /*   By: dkaiser <dkaiser@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 11:57:44 by dkaiser           #+#    #+#             */
-/*   Updated: 2025/01/17 12:00:11 by dkaiser          ###   ########.fr       */
+/*   Updated: 2025/01/17 12:39:17 by dkaiser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_UTILS_H
-#define FT_UTILS_H
+# define FT_UTILS_H
+
+# include <stdlib.h>
+# include <stdio.h>
 
 /*
 ** Prints error message and returns EXIT_FAILURE

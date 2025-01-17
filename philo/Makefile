@@ -9,7 +9,7 @@ CFLAGS  =  -Wall -Wextra -Werror
 HEADERS =  -Iinclude
 
 VPATH   := src
-SRC     := main.c
+SRC     := main.c ft_utils.c
 
 OBJ_DIR := _obj
 OBJ     := $(addprefix $(OBJ_DIR)/, $(SRC:%.c=%.o))
