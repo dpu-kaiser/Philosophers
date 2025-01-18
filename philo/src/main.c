@@ -6,7 +6,7 @@
 /*   By: dkaiser <dkaiser@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 17:13:30 by dkaiser           #+#    #+#             */
-/*   Updated: 2025/01/18 11:20:47 by dkaiser          ###   ########.fr       */
+/*   Updated: 2025/01/18 11:22:33 by dkaiser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ int main(int argc, char *argv[])
     if (result != EXIT_SUCCESS)
         return (result);
     free(philos);
+    run_simulation(data.nbr_of_philos, philos);
     free(data.forks);
     return (result);
 }
