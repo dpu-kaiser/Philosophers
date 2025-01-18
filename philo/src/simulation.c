@@ -6,11 +6,18 @@
 /*   By: dkaiser <dkaiser@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 14:38:04 by dkaiser           #+#    #+#             */
-/*   Updated: 2025/01/18 13:04:32 by dkaiser          ###   ########.fr       */
+/*   Updated: 2025/01/18 13:59:17 by dkaiser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+void philo_die(t_philo *philo)
+{
+            philo->is_alive = 0;
+            ft_log(philo->id, "has died");
+            philo->data->simulation_running = 0;
+}
 
 void philo_eat(t_philo *philo)
 {
@@ -18,28 +25,40 @@ void philo_eat(t_philo *philo)
     t_fork *right_fork;
     int started_eating;
     int tte;
+    int ttd;
 
     left_fork = &philo->data->forks[philo->id];
     right_fork = &philo->data->forks[(philo->id + 1) % philo->data->nbr_of_philos];
+    ttd = philo->data->time_to_die;
     while (!left_fork->available || !right_fork->available)
     {
-        // die if waiting too long
+        if (!philo->data->simulation_running)
+            return;
+        if (ft_cur_time_in_ms() > philo->last_time_eaten + ttd)
+            return (philo_die(philo));
+        usleep(1000);
     }
     pthread_mutex_lock(&left_fork->mutex);
     pthread_mutex_lock(&right_fork->mutex);
-    left_fork->available = 0;
-    ft_log(philo->id, "has taken a fork");
-    right_fork->available = 0;
-    ft_log(philo->id, "has taken a fork");
-    started_eating = ft_cur_time_in_ms();
-    tte = philo->data->time_to_eat;
-    ft_log(philo->id, "is eating");
-    while (ft_cur_time_in_ms() < started_eating + tte)
+    if (philo->data->simulation_running)
     {
-        usleep(1000);
+        left_fork->available = 0;
+        ft_log(philo->id, "has taken a fork");
+        right_fork->available = 0;
+        ft_log(philo->id, "has taken a fork");
+        started_eating = ft_cur_time_in_ms();
+        tte = philo->data->time_to_eat;
+        philo->last_time_eaten = started_eating;
+        ft_log(philo->id, "is eating");
+        while (ft_cur_time_in_ms() < started_eating + tte)
+        {
+            if (ft_cur_time_in_ms() > philo->last_time_eaten + ttd)
+                return (philo_die(philo));
+            usleep(1000);
+        }
+        left_fork->available = 1;
+        right_fork->available = 1;
     }
-    left_fork->available = 1;
-    right_fork->available = 1;
     pthread_mutex_unlock(&left_fork->mutex);
     pthread_mutex_unlock(&right_fork->mutex);
 }
@@ -48,13 +67,16 @@ void philo_sleep(t_philo *philo)
 {
     int started_sleeping;
     int tts;
+    int ttd;
 
     started_sleeping = ft_cur_time_in_ms();
     tts = philo->data->time_to_sleep;
+    ttd = philo->data->time_to_die;
     ft_log(philo->id, "is sleeping");
     while (ft_cur_time_in_ms() < started_sleeping + tts)
     {
-
+        if (ft_cur_time_in_ms() > philo->last_time_eaten + ttd)
+            return (philo_die(philo));
         usleep(1000);
     }
 }
@@ -77,7 +99,11 @@ int *process_philo(void *arg)
     while (philo->data->simulation_running)
     {
         philo_eat(philo);
+        if (!philo->data->simulation_running)
+            break;
         philo_sleep(philo);
+        if (!philo->data->simulation_running)
+            break;
         philo_think(philo);
     }
     return (result);

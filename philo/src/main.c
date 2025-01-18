@@ -6,7 +6,7 @@
 /*   By: dkaiser <dkaiser@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 17:13:30 by dkaiser           #+#    #+#             */
-/*   Updated: 2025/01/18 12:02:24 by dkaiser          ###   ########.fr       */
+/*   Updated: 2025/01/18 13:06:09 by dkaiser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ int init(t_philo **philos, t_phdata *data)
         (*philos)[i].is_alive = 1;
         (*philos)[i].times_eaten = 0;
         (*philos)[i].data = data;
+        (*philos)[i].last_time_eaten = ft_cur_time_in_ms();
         data->forks[i].available = 1;
         result = pthread_mutex_init(&(data->forks[i].mutex), NULL);
         if (result != 0)

@@ -6,7 +6,7 @@
 /*   By: dkaiser <dkaiser@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 10:23:19 by dkaiser           #+#    #+#             */
-/*   Updated: 2025/01/18 12:46:42 by dkaiser          ###   ########.fr       */
+/*   Updated: 2025/01/18 13:12:06 by dkaiser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct s_phdata
 typedef struct s_philo
 {
     int id;
+    int last_time_eaten;
     int times_eaten;
     int is_alive;
     pthread_t thread;
