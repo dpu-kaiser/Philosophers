@@ -6,7 +6,7 @@
 /*   By: dkaiser <dkaiser@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 11:57:11 by dkaiser           #+#    #+#             */
-/*   Updated: 2025/01/18 12:47:38 by dkaiser          ###   ########.fr       */
+/*   Updated: 2025/01/18 12:55:26 by dkaiser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,19 @@ int ft_err(const char *str)
     return (EXIT_FAILURE);
 }
 
-void ft_log(int id, const char *str)
+unsigned int ft_cur_time_in_ms()
 {
-	int timestamp_in_ms;
+	unsigned int time_in_ms;
 	struct timeval t;
 
 	gettimeofday(&t, NULL);
-	timestamp_in_ms = (t.tv_sec * 1000) + (t.tv_usec / 1000);
-	printf("%d %d %s\n", timestamp_in_ms, id, str);
+	times_in_ms = (t.tv_sec * 1000) + (t.tv_usec / 1000);
+	return (time_in_ms);
+}
+
+void ft_log(int id, const char *str)
+{
+	printf("%u %d %s\n", ft_cur_time_in_ms(), id, str);
 }
 
 int	ft_atoi(const char *str)
