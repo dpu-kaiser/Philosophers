@@ -6,7 +6,7 @@
 /*   By: dkaiser <dkaiser@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 10:23:19 by dkaiser           #+#    #+#             */
-/*   Updated: 2025/01/18 13:12:06 by dkaiser          ###   ########.fr       */
+/*   Updated: 2025/01/18 16:57:23 by dkaiser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ typedef struct s_phdata
     int time_to_eat;
     int time_to_sleep;
     int times_must_eat;
+    int philos_must_eat;
+    pthread_mutex_t pme_mutex;
     int simulation_running;
     t_fork *forks;
 } t_phdata;
@@ -43,7 +45,7 @@ typedef struct s_philo
 {
     int id;
     int last_time_eaten;
-    int times_eaten;
+    int times_must_eat;
     int is_alive;
     pthread_t thread;
     t_phdata *data;

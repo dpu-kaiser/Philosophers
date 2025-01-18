@@ -6,7 +6,7 @@
 /*   By: dkaiser <dkaiser@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 17:13:30 by dkaiser           #+#    #+#             */
-/*   Updated: 2025/01/18 13:06:09 by dkaiser          ###   ########.fr       */
+/*   Updated: 2025/01/18 16:59:24 by dkaiser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int load_data(t_phdata *data, int argc, char *argv[])
     data->time_to_eat = ft_atoi(argv[3]);
     data->time_to_sleep = ft_atoi(argv[4]);
     if (argc == 6)
-        data->times_must_eat = ft_atoi(argv[2]);
+        data->times_must_eat = ft_atoi(argv[5]);
     else
         data->times_must_eat = -1;
     if (data->nbr_of_philos <= 0)
@@ -31,6 +31,7 @@ int load_data(t_phdata *data, int argc, char *argv[])
         return (ft_err("tte can't be negative"));
     if (data->time_to_sleep < 0)
         return (ft_err("tts can't be negative"));
+    data->philos_must_eat = data->nbr_of_philos;
     return (EXIT_SUCCESS);
 }
 
@@ -49,17 +50,28 @@ int init(t_philo **philos, t_phdata *data)
         return (ft_err(ERR_MALLOC));
     }
     i = 0;
+    result = pthread_mutex_init(&(data->forks[i].mutex), NULL);
+    if (result != 0)
+    {
+        free(*philos);
+        free(data->forks);
+        return (result);
+    }
     while (i < data->nbr_of_philos)
     {
         (*philos)[i].id = i + 1;
         (*philos)[i].is_alive = 1;
-        (*philos)[i].times_eaten = 0;
+        (*philos)[i].times_must_eat = data->times_must_eat;
         (*philos)[i].data = data;
         (*philos)[i].last_time_eaten = ft_cur_time_in_ms();
         data->forks[i].available = 1;
         result = pthread_mutex_init(&(data->forks[i].mutex), NULL);
         if (result != 0)
+        {
+            free(*philos);
+            free(data->forks);
             return (result);
+        }
         i++;
     }
     return (EXIT_SUCCESS);
