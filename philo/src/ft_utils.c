@@ -6,7 +6,7 @@
 /*   By: dkaiser <dkaiser@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 11:57:11 by dkaiser           #+#    #+#             */
-/*   Updated: 2025/01/17 11:59:28 by dkaiser          ###   ########.fr       */
+/*   Updated: 2025/01/18 12:47:38 by dkaiser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,16 @@ int ft_err(const char *str)
 {
     printf("\e[31m[ERROR] %s\e[0m\n", str);
     return (EXIT_FAILURE);
+}
+
+void ft_log(int id, const char *str)
+{
+	int timestamp_in_ms;
+	struct timeval t;
+
+	gettimeofday(&t, NULL);
+	timestamp_in_ms = (t.tv_sec * 1000) + (t.tv_usec / 1000);
+	printf("%d %d %s\n", timestamp_in_ms, id, str);
 }
 
 int	ft_atoi(const char *str)

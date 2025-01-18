@@ -6,7 +6,7 @@
 /*   By: dkaiser <dkaiser@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 10:23:19 by dkaiser           #+#    #+#             */
-/*   Updated: 2025/01/18 11:36:45 by dkaiser          ###   ########.fr       */
+/*   Updated: 2025/01/18 12:46:42 by dkaiser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <pthread.h>
-# include <sys/time.h>
 # include "ft_utils.h"
 
 # define ERR_USAGE "Usage: <nbr_of_philos> <ttd> <tte> <tts> [times_must_eat]"

@@ -6,7 +6,7 @@
 /*   By: dkaiser <dkaiser@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 14:38:04 by dkaiser           #+#    #+#             */
-/*   Updated: 2025/01/18 12:41:31 by dkaiser          ###   ########.fr       */
+/*   Updated: 2025/01/18 12:49:42 by dkaiser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,10 @@ void philo_eat(t_philo *philo)
     pthread_mutex_lock(&left_fork->mutex);
     pthread_mutex_lock(&right_fork->mutex);
     left_fork->available = 0;
+    ft_log(philo->id, "has taken a fork");
     right_fork->available = 0;
-    printf("Philo %d is eating\n", philo->id);
+    ft_log(philo->id, "has taken a fork");
+    ft_log(philo->id, "is eating");
     usleep(1000000);
     left_fork->available = 1;
     right_fork->available = 1;
@@ -37,13 +39,13 @@ void philo_eat(t_philo *philo)
 
 void philo_sleep(t_philo *philo)
 {
-    printf("Philo %d is sleeping\n", philo->id);
+    ft_log(philo->id, "is sleeping");
     usleep(1000000);
 }
 
 void philo_think(t_philo *philo)
 {
-    printf("Philo %d is thinking\n", philo->id);
+    ft_log(philo->id, "is thinking");
 }
 
 int *process_philo(void *arg)
