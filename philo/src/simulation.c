@@ -6,33 +6,44 @@
 /*   By: dkaiser <dkaiser@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 14:38:04 by dkaiser           #+#    #+#             */
-/*   Updated: 2025/01/18 12:26:53 by dkaiser          ###   ########.fr       */
+/*   Updated: 2025/01/18 12:41:31 by dkaiser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int eat(t_philo *philo)
+void philo_eat(t_philo *philo)
 {
     t_fork *left_fork;
     t_fork *right_fork;
 
     left_fork = &philo->data->forks[philo->id];
     right_fork = &philo->data->forks[(philo->id + 1) % philo->data->nbr_of_philos];
-    if (left_fork->available && right_fork->available)
+    while (!left_fork->available || !right_fork->available)
     {
-        pthread_mutex_lock(&left_fork->mutex);
-        pthread_mutex_lock(&right_fork->mutex);
-        left_fork->available = 0;
-        right_fork->available = 0;
-        printf("Philo %d is eating\n", philo->id);
-        usleep(1000000);
-        left_fork->available = 1;
-        right_fork->available = 1;
-        pthread_mutex_unlock(&left_fork->mutex);
-        pthread_mutex_unlock(&right_fork->mutex);
+        // die if waiting too long
     }
-   return (EXIT_SUCCESS);
+    pthread_mutex_lock(&left_fork->mutex);
+    pthread_mutex_lock(&right_fork->mutex);
+    left_fork->available = 0;
+    right_fork->available = 0;
+    printf("Philo %d is eating\n", philo->id);
+    usleep(1000000);
+    left_fork->available = 1;
+    right_fork->available = 1;
+    pthread_mutex_unlock(&left_fork->mutex);
+    pthread_mutex_unlock(&right_fork->mutex);
+}
+
+void philo_sleep(t_philo *philo)
+{
+    printf("Philo %d is sleeping\n", philo->id);
+    usleep(1000000);
+}
+
+void philo_think(t_philo *philo)
+{
+    printf("Philo %d is thinking\n", philo->id);
 }
 
 int *process_philo(void *arg)
@@ -47,10 +58,9 @@ int *process_philo(void *arg)
     *result = EXIT_SUCCESS;
     while (philo->data->simulation_running)
     {
-        *result = eat(philo);
-        printf("Philo %d is sleeping\n", philo->id);
-        usleep(1000000);
-        //think
+        philo_eat(philo);
+        philo_sleep(philo);
+        philo_think(philo);
     }
     return (result);
 }
