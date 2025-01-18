@@ -6,7 +6,7 @@
 /*   By: dkaiser <dkaiser@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 14:38:04 by dkaiser           #+#    #+#             */
-/*   Updated: 2025/01/18 13:59:17 by dkaiser          ###   ########.fr       */
+/*   Updated: 2025/01/18 16:37:14 by dkaiser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ void philo_eat(t_philo *philo)
     int tte;
     int ttd;
 
-    left_fork = &philo->data->forks[philo->id];
-    right_fork = &philo->data->forks[(philo->id + 1) % philo->data->nbr_of_philos];
+    left_fork = &philo->data->forks[philo->id - 1];
+    right_fork = &philo->data->forks[philo->id % philo->data->nbr_of_philos];
     ttd = philo->data->time_to_die;
     while (!left_fork->available || !right_fork->available)
     {
@@ -42,6 +42,7 @@ void philo_eat(t_philo *philo)
     pthread_mutex_lock(&right_fork->mutex);
     if (philo->data->simulation_running)
     {
+
         left_fork->available = 0;
         ft_log(philo->id, "has taken a fork");
         right_fork->available = 0;
