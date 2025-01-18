@@ -6,7 +6,7 @@
 /*   By: dkaiser <dkaiser@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 17:13:30 by dkaiser           #+#    #+#             */
-/*   Updated: 2025/01/17 12:40:05 by dkaiser          ###   ########.fr       */
+/*   Updated: 2025/01/18 11:20:47 by dkaiser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int load_data(t_phdata *data, int argc, char *argv[])
     if (argc == 6)
         data->times_must_eat = ft_atoi(argv[2]);
     else
-        data->times_must_eat = 0;
+        data->times_must_eat = -1;
     if (data->nbr_of_philos <= 0)
         return (ft_err("Must have at least one philosopher"));
     if (data->time_to_die < 0)
@@ -31,14 +31,40 @@ int load_data(t_phdata *data, int argc, char *argv[])
         return (ft_err("tte can't be negative"));
     if (data->time_to_sleep < 0)
         return (ft_err("tts can't be negative"));
-    if (data->times_must_eat < 0)
-        data->times_must_eat = 0;
+    return (EXIT_SUCCESS);
+}
+
+int init(t_philo **philos, t_phdata *data)
+{
+    int i;
+
+    *philos = (t_philo *)malloc(sizeof(t_philo) * data->nbr_of_philos);
+    if (*philos == NULL)
+        return (ft_err(ERR_MALLOC));
+    data->forks = (t_fork *)malloc(sizeof(int) * data->nbr_of_philos);
+    if (data->forks == NULL)
+    {
+        free(*philos);
+        return (ft_err(ERR_MALLOC));
+    }
+    i = 0;
+    while (i < data->nbr_of_philos)
+    {
+        (*philos)[i].id = i + 1;
+        (*philos)[i].is_alive = 1;
+        (*philos)[i].times_eaten = 0;
+        (*philos)[i].data = data;
+        data->forks[i].available = 1;
+        pthread_mutex_init(&(data->forks[i].mutex), NULL);
+        i++;
+    }
     return (EXIT_SUCCESS);
 }
 
 int main(int argc, char *argv[])
 {
     t_phdata data;
+    t_philo *philos;
     int result;
 
     if (argc != 5 && argc != 6)
@@ -46,5 +72,10 @@ int main(int argc, char *argv[])
     result = load_data(&data, argc, argv);
     if (result != EXIT_SUCCESS)
         return (result);
-    return (EXIT_SUCCESS);
+    result = init(&philos, &data);
+    if (result != EXIT_SUCCESS)
+        return (result);
+    free(philos);
+    free(data.forks);
+    return (result);
 }
