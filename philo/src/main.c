@@ -6,7 +6,7 @@
 /*   By: dkaiser <dkaiser@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 17:13:30 by dkaiser           #+#    #+#             */
-/*   Updated: 2025/01/18 11:22:33 by dkaiser          ###   ########.fr       */
+/*   Updated: 2025/01/18 11:33:45 by dkaiser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,12 @@ int load_data(t_phdata *data, int argc, char *argv[])
 int init(t_philo **philos, t_phdata *data)
 {
     int i;
+    int result;
 
     *philos = (t_philo *)malloc(sizeof(t_philo) * data->nbr_of_philos);
     if (*philos == NULL)
         return (ft_err(ERR_MALLOC));
-    data->forks = (t_fork *)malloc(sizeof(int) * data->nbr_of_philos);
+    data->forks = (t_fork *)malloc(sizeof(t_fork) * data->nbr_of_philos);
     if (data->forks == NULL)
     {
         free(*philos);
@@ -55,7 +56,9 @@ int init(t_philo **philos, t_phdata *data)
         (*philos)[i].times_eaten = 0;
         (*philos)[i].data = data;
         data->forks[i].available = 1;
-        pthread_mutex_init(&(data->forks[i].mutex), NULL);
+        result = pthread_mutex_init(&(data->forks[i].mutex), NULL);
+        if (result != 0)
+            return (result);
         i++;
     }
     return (EXIT_SUCCESS);
@@ -75,8 +78,8 @@ int main(int argc, char *argv[])
     result = init(&philos, &data);
     if (result != EXIT_SUCCESS)
         return (result);
-    free(philos);
     run_simulation(data.nbr_of_philos, philos);
+    free(philos);
     free(data.forks);
     return (result);
 }
