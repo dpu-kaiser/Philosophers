@@ -6,7 +6,7 @@
 /*   By: dkaiser <dkaiser@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 10:23:19 by dkaiser           #+#    #+#             */
-/*   Updated: 2025/01/18 16:57:23 by dkaiser          ###   ########.fr       */
+/*   Updated: 2025/01/18 17:09:50 by dkaiser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,6 @@ typedef struct s_philo
     t_phdata *data;
 } t_philo;
 
-int run_simulation(int nbr_of_philos, t_philo *philos);
+int run_simulation(int nbr_of_philos, t_philo *philos, t_phdata *data);
 
 #endif

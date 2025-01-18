@@ -6,7 +6,7 @@
 /*   By: dkaiser <dkaiser@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 17:13:30 by dkaiser           #+#    #+#             */
-/*   Updated: 2025/01/18 16:59:24 by dkaiser          ###   ########.fr       */
+/*   Updated: 2025/01/18 17:09:26 by dkaiser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int main(int argc, char *argv[])
     if (result != EXIT_SUCCESS)
         return (result);
     data.simulation_running = 1;
-    result = run_simulation(data.nbr_of_philos, philos);
+    result = run_simulation(data.nbr_of_philos, philos, &data);
     free(philos);
     free(data.forks);
     return (result);

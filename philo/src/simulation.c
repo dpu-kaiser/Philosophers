@@ -6,7 +6,7 @@
 /*   By: dkaiser <dkaiser@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 14:38:04 by dkaiser           #+#    #+#             */
-/*   Updated: 2025/01/18 17:02:27 by dkaiser          ###   ########.fr       */
+/*   Updated: 2025/01/18 17:09:34 by dkaiser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,8 +106,6 @@ int *process_philo(void *arg)
         {
             pthread_mutex_lock(&philo->data->pme_mutex);
             philo->data->philos_must_eat -= 1;
-            if (philo->data->philos_must_eat <= 0)
-                philo->data->simulation_running = 0;
             pthread_mutex_unlock(&philo->data->pme_mutex);
         }
         if (!philo->data->simulation_running)
@@ -120,7 +118,7 @@ int *process_philo(void *arg)
     return (result);
 }
 
-int run_simulation(int nbr_of_philos, t_philo *philos)
+int run_simulation(int nbr_of_philos, t_philo *philos, t_phdata *data)
 {
     int i;
     int result;
@@ -134,6 +132,11 @@ int run_simulation(int nbr_of_philos, t_philo *philos)
         if (result != 0)
             break;
         i++;
+    }
+    while (data->simulation_running)
+    {
+            if (data->philos_must_eat <= 0)
+                data->simulation_running = 0;
     }
     while (i--)
     {
