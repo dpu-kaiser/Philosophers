@@ -6,7 +6,7 @@
 /*   By: dkaiser <dkaiser@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 11:57:44 by dkaiser           #+#    #+#             */
-/*   Updated: 2025/01/18 12:56:44 by dkaiser          ###   ########.fr       */
+/*   Updated: 2025/01/18 13:04:16 by dkaiser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int ft_atoi(const char *str);
 /*
 ** Returns current time in milliseconds
 */
-unsigned int ft_cur_time_in_ms();
+int ft_cur_time_in_ms();
 
 /*
 ** Prints "timestamp_in_ms id str"

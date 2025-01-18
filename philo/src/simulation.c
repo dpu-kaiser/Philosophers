@@ -6,7 +6,7 @@
 /*   By: dkaiser <dkaiser@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 14:38:04 by dkaiser           #+#    #+#             */
-/*   Updated: 2025/01/18 12:49:42 by dkaiser          ###   ########.fr       */
+/*   Updated: 2025/01/18 13:04:32 by dkaiser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void philo_eat(t_philo *philo)
 {
     t_fork *left_fork;
     t_fork *right_fork;
+    int started_eating;
+    int tte;
 
     left_fork = &philo->data->forks[philo->id];
     right_fork = &philo->data->forks[(philo->id + 1) % philo->data->nbr_of_philos];
@@ -29,8 +31,13 @@ void philo_eat(t_philo *philo)
     ft_log(philo->id, "has taken a fork");
     right_fork->available = 0;
     ft_log(philo->id, "has taken a fork");
+    started_eating = ft_cur_time_in_ms();
+    tte = philo->data->time_to_eat;
     ft_log(philo->id, "is eating");
-    usleep(1000000);
+    while (ft_cur_time_in_ms() < started_eating + tte)
+    {
+        usleep(1000);
+    }
     left_fork->available = 1;
     right_fork->available = 1;
     pthread_mutex_unlock(&left_fork->mutex);
@@ -39,8 +46,17 @@ void philo_eat(t_philo *philo)
 
 void philo_sleep(t_philo *philo)
 {
+    int started_sleeping;
+    int tts;
+
+    started_sleeping = ft_cur_time_in_ms();
+    tts = philo->data->time_to_sleep;
     ft_log(philo->id, "is sleeping");
-    usleep(1000000);
+    while (ft_cur_time_in_ms() < started_sleeping + tts)
+    {
+
+        usleep(1000);
+    }
 }
 
 void philo_think(t_philo *philo)
