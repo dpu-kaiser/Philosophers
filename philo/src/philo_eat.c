@@ -6,7 +6,7 @@
 /*   By: dkaiser <dkaiser@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 18:15:40 by dkaiser           #+#    #+#             */
-/*   Updated: 2025/01/27 14:37:24 by dkaiser          ###   ########.fr       */
+/*   Updated: 2025/01/27 14:52:54 by dkaiser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,15 @@ static void	eat(t_philo *philo, t_fork *left_fork, t_fork *right_fork)
 {
 	int	started_eating;
 
-	ft_log(philo->id, "is eating");
 	started_eating = ft_cur_time_in_ms();
+	ft_log(philo->id, "is eating");
 	while (ft_cur_time_in_ms() < started_eating + philo->data->time_to_eat)
 	{
 		if (!philo->data->simulation_running)
 			return ;
 		if (philo_die(philo))
 			return ;
-		usleep(500);
+		usleep(250);
 	}
 	philo->last_time_eaten = ft_cur_time_in_ms();
 	philo->times_must_eat -= 1;
@@ -64,7 +64,7 @@ void	philo_eat(t_philo *philo)
 		if (philo->id % 2 == 0)
 			take_fork(philo, right_fork);
 		else if (philo->id % 2 == 1)
-			usleep(500);
+			usleep(250);
 		take_fork(philo, left_fork);
 		take_fork(philo, right_fork);
 		if (!philo->data->simulation_running)
@@ -74,7 +74,7 @@ void	philo_eat(t_philo *philo)
 		if (left_fork->owner == philo->id && right_fork->owner == philo->id)
 			break ;
 		if (philo->id % 2 == 0)
-			usleep(500);
+			usleep(250);
 	}
 	if (philo->data->nbr_of_philos > 1)
 		eat(philo, left_fork, right_fork);
