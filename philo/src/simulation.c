@@ -6,7 +6,7 @@
 /*   By: dkaiser <dkaiser@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 14:38:04 by dkaiser           #+#    #+#             */
-/*   Updated: 2025/01/27 14:46:08 by dkaiser          ###   ########.fr       */
+/*   Updated: 2025/01/27 15:01:42 by dkaiser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,14 +84,14 @@ int	run_simulation(int nbr_of_philos, t_philo *philos, t_phdata *data)
 			break ;
 		i++;
 	}
+	if (result != EXIT_SUCCESS)
+		data->simulation_running = 0;
 	while (data->simulation_running)
 	{
 		if (data->philos_must_eat <= 0)
 			data->simulation_running = 0;
 	}
 	while (i--)
-	{
 		pthread_join(philos[i].thread, NULL);
-	}
 	return (result);
 }
