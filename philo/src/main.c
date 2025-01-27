@@ -6,7 +6,7 @@
 /*   By: dkaiser <dkaiser@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 17:13:30 by dkaiser           #+#    #+#             */
-/*   Updated: 2025/01/26 12:05:55 by dkaiser          ###   ########.fr       */
+/*   Updated: 2025/01/27 12:07:13 by dkaiser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,11 @@ int	load_data(t_phdata *data, int argc, char *argv[])
 	data->time_to_eat = ft_atoi(argv[3]);
 	data->time_to_sleep = ft_atoi(argv[4]);
 	if (argc == 6)
+	{
 		data->times_must_eat = ft_atoi(argv[5]);
+		if (data->times_must_eat < 1)
+			return (ft_err("times_must_eat can't be negative or zero"));
+	}
 	else
 		data->times_must_eat = -1;
 	if (data->nbr_of_philos <= 0)
