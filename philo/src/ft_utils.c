@@ -6,11 +6,11 @@
 /*   By: dkaiser <dkaiser@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 11:57:11 by dkaiser           #+#    #+#             */
-/*   Updated: 2025/01/21 12:04:22 by dkaiser          ###   ########.fr       */
+/*   Updated: 2025/01/28 13:04:10 by dkaiser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_utils.h"
+#include "philo.h"
 
 int	ft_err(const char *str)
 {

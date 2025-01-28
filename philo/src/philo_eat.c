@@ -6,13 +6,11 @@
 /*   By: dkaiser <dkaiser@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 18:15:40 by dkaiser           #+#    #+#             */
-/*   Updated: 2025/01/27 14:52:54 by dkaiser          ###   ########.fr       */
+/*   Updated: 2025/01/28 13:05:31 by dkaiser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_utils.h"
 #include "philo.h"
-#include <pthread.h>
 
 static void	take_fork(t_philo *philo, t_fork *fork)
 {
