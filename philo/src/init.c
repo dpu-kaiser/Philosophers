@@ -6,7 +6,7 @@
 /*   By: dkaiser <dkaiser@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 13:12:57 by dkaiser           #+#    #+#             */
-/*   Updated: 2025/01/28 13:25:15 by dkaiser          ###   ########.fr       */
+/*   Updated: 2025/01/28 14:28:58 by dkaiser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,14 @@ int	init(t_philo **philos, t_phdata *data)
 	if (result != 0)
 	{
 		free(*philos);
-		free(data->forks);
+		free_data(data);
 		return (result);
 	}
 	result = pthread_mutex_init(&data->sr_mutex, NULL);
 	if (result != 0)
 	{
 		free(*philos);
-		free(data->forks);
+		free_data(data);
 		return (result);
 	}
 	result = init_philos(philos, data);

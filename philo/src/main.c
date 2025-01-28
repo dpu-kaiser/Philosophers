@@ -6,11 +6,12 @@
 /*   By: dkaiser <dkaiser@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 17:13:30 by dkaiser           #+#    #+#             */
-/*   Updated: 2025/01/28 13:49:55 by dkaiser          ###   ########.fr       */
+/*   Updated: 2025/01/28 14:25:27 by dkaiser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+#include <pthread.h>
 
 int	load_data(t_phdata *data, int argc, char *argv[])
 {
@@ -38,6 +39,21 @@ int	load_data(t_phdata *data, int argc, char *argv[])
 	return (EXIT_SUCCESS);
 }
 
+void	free_data(t_phdata *data)
+{
+	int	i;
+
+	i = 0;
+	while (i < data->nbr_of_philos)
+	{
+		pthread_mutex_destroy(&data->forks[i].mutex);
+		i++;
+	}
+	free(data->forks);
+	pthread_mutex_destroy(&data->pme_mutex);
+	pthread_mutex_destroy(&data->sr_mutex);
+}
+
 int	main(int argc, char *argv[])
 {
 	t_phdata	data;
@@ -54,6 +70,6 @@ int	main(int argc, char *argv[])
 		return (result);
 	result = run_simulation(data.nbr_of_philos, philos, &data);
 	free(philos);
-	free(data.forks);
+	free_data(&data);
 	return (result);
 }
