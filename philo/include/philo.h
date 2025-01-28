@@ -6,7 +6,7 @@
 /*   By: dkaiser <dkaiser@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 10:23:19 by dkaiser           #+#    #+#             */
-/*   Updated: 2025/01/28 13:16:12 by dkaiser          ###   ########.fr       */
+/*   Updated: 2025/01/28 13:34:48 by dkaiser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct s_phdata
 	int				philos_must_eat;
 	pthread_mutex_t	pme_mutex;
 	int				simulation_running;
+	pthread_mutex_t	sr_mutex;
 	t_fork			*forks;
 }					t_phdata;
 
@@ -57,6 +58,9 @@ int					run_simulation(int nbr_of_philos, t_philo *philos,
 int					philo_die(t_philo *philo);
 void				philo_eat(t_philo *philo);
 
+int					is_simulation_running(t_phdata *data);
+void				stop_simulation(t_phdata *data);
+
 /*
 ** Prints error message and returns EXIT_FAILURE
 */
@@ -73,8 +77,8 @@ int					ft_atoi(const char *str);
 int					ft_cur_time_in_ms(void);
 
 /*
-** Prints "timestamp_in_ms id str"
+** Prints "timestamp_in_ms philo->id str"
 */
-void				ft_log(int id, const char *str);
+void				ft_log(t_philo *philo, const char *str);
 
 #endif

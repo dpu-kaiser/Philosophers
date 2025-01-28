@@ -6,7 +6,7 @@
 /*   By: dkaiser <dkaiser@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 18:15:40 by dkaiser           #+#    #+#             */
-/*   Updated: 2025/01/28 13:05:31 by dkaiser          ###   ########.fr       */
+/*   Updated: 2025/01/28 13:42:19 by dkaiser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	take_fork(t_philo *philo, t_fork *fork)
 	if (fork->owner == 0)
 	{
 		fork->owner = philo->id;
-		ft_log(philo->id, "has taken a fork");
+		ft_log(philo, "has taken a fork");
 	}
 	pthread_mutex_unlock(&fork->mutex);
 }
@@ -35,10 +35,10 @@ static void	eat(t_philo *philo, t_fork *left_fork, t_fork *right_fork)
 	int	started_eating;
 
 	started_eating = ft_cur_time_in_ms();
-	ft_log(philo->id, "is eating");
+	ft_log(philo, "is eating");
 	while (ft_cur_time_in_ms() < started_eating + philo->data->time_to_eat)
 	{
-		if (!philo->data->simulation_running)
+		if (!is_simulation_running(philo->data))
 			return ;
 		if (philo_die(philo))
 			return ;
@@ -65,7 +65,7 @@ void	philo_eat(t_philo *philo)
 			usleep(250);
 		take_fork(philo, left_fork);
 		take_fork(philo, right_fork);
-		if (!philo->data->simulation_running)
+		if (!is_simulation_running(philo->data))
 			return ;
 		if (philo_die(philo))
 			return ;

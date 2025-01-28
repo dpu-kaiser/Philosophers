@@ -6,7 +6,7 @@
 /*   By: dkaiser <dkaiser@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 14:38:04 by dkaiser           #+#    #+#             */
-/*   Updated: 2025/01/27 15:01:42 by dkaiser          ###   ########.fr       */
+/*   Updated: 2025/01/28 13:41:46 by dkaiser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ int	philo_die(t_philo *philo)
 	if (ft_cur_time_in_ms() > philo->last_time_eaten + philo->data->time_to_die)
 	{
 		philo->is_alive = 0;
-		ft_log(philo->id, "has died");
-		philo->data->simulation_running = 0;
+		ft_log(philo, "has died");
+		stop_simulation(philo->data);
 		return (1);
 	}
 	return (0);
@@ -31,10 +31,12 @@ void	philo_sleep(t_philo *philo)
 
 	started_sleeping = ft_cur_time_in_ms();
 	tts = philo->data->time_to_sleep;
-	ft_log(philo->id, "is sleeping");
+	ft_log(philo, "is sleeping");
 	while (ft_cur_time_in_ms() < started_sleeping + tts)
 	{
 		if (philo_die(philo))
+			return ;
+		if (!is_simulation_running(philo->data))
 			return ;
 		usleep(250);
 	}
@@ -45,7 +47,7 @@ void	process_philo(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
-	while (philo->data->simulation_running)
+	while (is_simulation_running(philo->data))
 	{
 		philo_eat(philo);
 		if (philo->times_must_eat == 0)
@@ -54,7 +56,7 @@ void	process_philo(void *arg)
 			philo->data->philos_must_eat -= 1;
 			pthread_mutex_unlock(&philo->data->pme_mutex);
 		}
-		if (!philo->data->simulation_running)
+		if (!is_simulation_running(philo->data))
 			break ;
 		if (philo->data->nbr_of_philos < 2)
 		{
@@ -63,9 +65,9 @@ void	process_philo(void *arg)
 			continue ;
 		}
 		philo_sleep(philo);
-		if (!philo->data->simulation_running)
+		if (!is_simulation_running(philo->data))
 			break ;
-		ft_log(philo->id, "is thinking");
+		ft_log(philo, "is thinking");
 	}
 }
 
@@ -76,6 +78,7 @@ int	run_simulation(int nbr_of_philos, t_philo *philos, t_phdata *data)
 
 	i = 0;
 	result = EXIT_SUCCESS;
+	data->simulation_running = 1;
 	while (i < nbr_of_philos)
 	{
 		result = pthread_create(&(philos[i].thread), NULL,
@@ -85,11 +88,11 @@ int	run_simulation(int nbr_of_philos, t_philo *philos, t_phdata *data)
 		i++;
 	}
 	if (result != EXIT_SUCCESS)
-		data->simulation_running = 0;
-	while (data->simulation_running)
+		stop_simulation(data);
+	while (is_simulation_running(data))
 	{
 		if (data->philos_must_eat <= 0)
-			data->simulation_running = 0;
+			stop_simulation(data);
 	}
 	while (i--)
 		pthread_join(philos[i].thread, NULL);

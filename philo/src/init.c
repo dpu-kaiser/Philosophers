@@ -6,11 +6,12 @@
 /*   By: dkaiser <dkaiser@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 13:12:57 by dkaiser           #+#    #+#             */
-/*   Updated: 2025/01/28 13:15:30 by dkaiser          ###   ########.fr       */
+/*   Updated: 2025/01/28 13:25:15 by dkaiser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+#include <pthread.h>
 
 static void	init_philo(t_philo *philo, t_phdata *data, int id);
 static int	init_philos(t_philo **philos, t_phdata *data);
@@ -29,6 +30,13 @@ int	init(t_philo **philos, t_phdata *data)
 		return (ft_err(ERR_MALLOC));
 	}
 	result = pthread_mutex_init(&(data->pme_mutex), NULL);
+	if (result != 0)
+	{
+		free(*philos);
+		free(data->forks);
+		return (result);
+	}
+	result = pthread_mutex_init(&data->sr_mutex, NULL);
 	if (result != 0)
 	{
 		free(*philos);

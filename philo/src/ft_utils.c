@@ -6,11 +6,12 @@
 /*   By: dkaiser <dkaiser@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 11:57:11 by dkaiser           #+#    #+#             */
-/*   Updated: 2025/01/28 13:04:10 by dkaiser          ###   ########.fr       */
+/*   Updated: 2025/01/28 13:52:09 by dkaiser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+#include <pthread.h>
 
 int	ft_err(const char *str)
 {
@@ -28,9 +29,12 @@ int	ft_cur_time_in_ms(void)
 	return (time_in_ms);
 }
 
-void	ft_log(int id, const char *str)
+void	ft_log(t_philo *philo, const char *str)
 {
-	printf("%u %d %s\n", ft_cur_time_in_ms(), id, str);
+	pthread_mutex_lock(&philo->data->sr_mutex);
+	if (philo->data->simulation_running)
+		printf("%u %d %s\n", ft_cur_time_in_ms(), philo->id, str);
+	pthread_mutex_unlock(&philo->data->sr_mutex);
 }
 
 int	ft_atoi(const char *str)
