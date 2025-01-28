@@ -6,7 +6,7 @@
 /*   By: dkaiser <dkaiser@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 10:23:19 by dkaiser           #+#    #+#             */
-/*   Updated: 2025/01/28 13:06:11 by dkaiser          ###   ########.fr       */
+/*   Updated: 2025/01/28 13:07:28 by dkaiser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 # include <pthread.h>
 # include <stdio.h>
 # include <stdlib.h>
-# include <unistd.h>
 # include <sys/time.h>
+# include <unistd.h>
 
 # define ERR_USAGE "Usage: <nbr_of_philos> <ttd> <tte> <tts> [times_must_eat]"
 # define ERR_MALLOC "Memory allocation failed"
@@ -59,21 +59,21 @@ void				philo_eat(t_philo *philo);
 /*
 ** Prints error message and returns EXIT_FAILURE
 */
-int		ft_err(const char *str);
+int					ft_err(const char *str);
 
 /*
 ** Returns integer value from str
 */
-int		ft_atoi(const char *str);
+int					ft_atoi(const char *str);
 
 /*
 ** Returns current time in milliseconds
 */
-int		ft_cur_time_in_ms(void);
+int					ft_cur_time_in_ms(void);
 
 /*
 ** Prints "timestamp_in_ms id str"
 */
-void	ft_log(int id, const char *str);
+void				ft_log(int id, const char *str);
 
 #endif
