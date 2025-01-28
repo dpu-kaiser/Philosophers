@@ -6,7 +6,7 @@
 /*   By: dkaiser <dkaiser@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 13:12:57 by dkaiser           #+#    #+#             */
-/*   Updated: 2025/01/28 14:28:58 by dkaiser          ###   ########.fr       */
+/*   Updated: 2025/01/28 14:36:59 by dkaiser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 static void	init_philo(t_philo *philo, t_phdata *data, int id);
 static int	init_philos(t_philo **philos, t_phdata *data);
+static void	free_all(t_philo *philos, t_phdata *data);
 
 int	init(t_philo **philos, t_phdata *data)
 {
@@ -32,15 +33,13 @@ int	init(t_philo **philos, t_phdata *data)
 	result = pthread_mutex_init(&(data->pme_mutex), NULL);
 	if (result != 0)
 	{
-		free(*philos);
-		free_data(data);
+		free_all(*philos, data);
 		return (result);
 	}
 	result = pthread_mutex_init(&data->sr_mutex, NULL);
 	if (result != 0)
 	{
-		free(*philos);
-		free_data(data);
+		free_all(*philos, data);
 		return (result);
 	}
 	result = init_philos(philos, data);
@@ -76,4 +75,10 @@ static void	init_philo(t_philo *philo, t_phdata *data, int id)
 	philo->times_must_eat = data->times_must_eat;
 	philo->data = data;
 	philo->last_time_eaten = ft_cur_time_in_ms();
+}
+
+static void	free_all(t_philo *philos, t_phdata *data)
+{
+	free(philos);
+	free_data(data);
 }
